@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login or Sign Up</title>
+</head>
+<body>
+    <div class="login-section">
+        <h1>Login</h1>
+        <form method="POST" action="{{ url_for('login') }}">
+            <label for="username">Username:</label>
+            <input type="text" name="username" required><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" required><br><br>
+
+            <input type="submit" value="Login">
+        </form>
+
+        {% with login_messages = get_flashed_messages(category_filter=['login']) %}
+        {% if login_messages %}
+        <ul>
+            {% for message in login_messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="signup-section">
+        <h1>Sign Up</h1>
+        <form method="POST" action="{{ url_for('signup') }}">
+            <label for="new_username">New Username:</label>
+            <input type="text" name="new_username" required><br><br>
+
+            <label for="new_password">New Password:</label>
+            <input type="password" name="new_password" required><br><br>
+
+            <input type="submit" value="Sign Up">
+        </form>
+
+        {% with signup_messages = get_flashed_messages(category_filter=['signup']) %}
+        {% if signup_messages %}
+        <ul>
+            {% for message in signup_messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

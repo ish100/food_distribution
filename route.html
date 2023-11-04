@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+<link
+  rel="stylesheet"
+  href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
+  type="text/css"
+/>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+body { margin: 0; padding: 0; }
+#map { position: absolute; padding: 0px; bottom: 0; width: 50%;height: 50%; }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="{{ url_for('home') }}" id="home-link"  class="w3-bar-item w3-button w3-padding-large">Home</a>
+      <a href="{{ url_for('get_route') }}" id="route-link"  class="w3-bar-item w3-button w3-padding-large">Get Route</a>
+      <a href="{{ url_for('address_book') }}" id="address-book-link"  class="w3-bar-item w3-button w3-padding-large">Address Book</a>
+      <a href="{{ url_for('contact') }}" id="contact-link"  class="w3-bar-item w3-button w3-padding-large">Contact Us</a>
+      
+    </div>
+
+  </div>
+  <br>
+  <br>
+
+  <h1 class="w3-margin w3-jumbo">Your route is :</h1>
+
+<div id='map' ></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaTQ1c2hhcm0iLCJhIjoiY2xva2t5YmdqMHBrdTJrbW8wem1hOTloMyJ9.zMyBNuQYgemRsqksFBYnQg'; // Replace with your Mapbox access token
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11', // You can choose different map styles
+            center: [-74.5, 40], // Initial map center (longitude, latitude)
+            zoom: 9 // Initial zoom level
+        });
+
+        // Add map markers, layers, and other features as needed.
+    </script>
+
+</body>
+<script>
+    // Get the current URL to determine the active tab
+    var currentURL = window.location.href;
+    
+    // Get the navigation links by their IDs
+    var homeLink = document.getElementById("home-link");
+    var addressBookLink = document.getElementById("address-book-link");
+    var contactLink = document.getElementById("contact-link");
+    
+    // Check if the current URL contains a specific keyword to determine the active tab
+    if (currentURL.includes("home")) {
+        homeLink.classList.add("w3-white"); // Highlight the "Home" tab
+    } else if (currentURL.includes("address_book")) {
+        addressBookLink.classList.add("w3-white"); // Highlight the "Address Book" tab
+    } else if (currentURL.includes("contact")) {
+        contactLink.classList.add("w3-white"); // Highlight the "Contact Us" tab
+    }
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaTQ1c2hhcm0iLCJhIjoiY2xva2t5YmdqMHBrdTJrbW8wem1hOTloMyJ9.zMyBNuQYgemRsqksFBYnQg';
+      
+        var map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: [locations[1][0], locations[1][1]], // Center the map on a specific location
+          zoom: 12, // Set the initial zoom level
+        });
+      
+        // Add markers for each location
+        locations.forEach(function (location) {
+          new mapboxgl.Marker().setLngLat(location).addTo(map);
+        });
+      
+        // Calculate and display directions
+        var directions = new MapboxDirections({
+          accessToken: mapboxgl.accessToken,
+        });
+      
+        map.addControl(directions, 'top-left');
+      
+        // Set the origin and destination for directions
+        directions.setOrigin(locations[0]);
+        directions.setDestination(locations[locations.length - 1]);
+      
+        // Add intermediate waypoints, if needed
+        for (var i = 1; i < locations.length - 1; i++) {
+          directions.addWaypoint(i, locations[i]);
+        }      
+    </script>
+
+</html>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css' rel='stylesheet' />
+</head>
+<body>
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaTQ1c2hhcm0iLCJhIjoiY2xva2t5YmdqMHBrdTJrbW8wem1hOTloMyJ9.zMyBNuQYgemRsqksFBYnQg';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [-122.335167, 47.608013], // Initial center coordinates
+            zoom: 12, // Initial zoom level
+        });
+
+        // Add markers for locations
+        new mapboxgl.Marker()
+            .setLngLat([-122.335167, 47.608013])
+            .addTo(map);
+        new mapboxgl.Marker()
+            .setLngLat([-122.400612, 37.787373])
+            .addTo(map);
+
+        // Add route
+        const routeCoordinates = {{ route }}; // Replace with the actual route coordinates
+        map.on('load', () => {
+            map.addLayer({
+                'id': 'route',
+                'type': 'line',
+                'source': {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'properties': {},
+                        'geometry': {
+                            'type': 'LineString',
+                            'coordinates': routeCoordinates,
+                        },
+                    },
+                },
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round',
+                },
+                'paint': {
+                    'line-color': '#888',
+                    'line-width': 8,
+                },
+            });
+        });
+    </script>
+</body>
+</html>
+
+

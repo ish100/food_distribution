@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+        .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+        .fa-anchor,.fa-coffee {font-size:200px}
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+          <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+          <a href="{{ url_for('home') }}" id="home-link"  class="w3-bar-item w3-button w3-padding-large">Home</a>
+          <a href="{{ url_for('get_route') }}" id="route-link"  class="w3-bar-item w3-button w3-padding-large">Get Route</a>
+          <a href="{{ url_for('address_book') }}" id="address-book-link"  class="w3-bar-item w3-button w3-padding-large">Address Book</a>
+          <a href="{{ url_for('contact') }}" id="contact-link"  class="w3-bar-item w3-button w3-padding-large">Contact Us</a>
+          
+        </div>
+      
+      </div>
+      
+    <div class="container">
+        <br>
+        <br>
+        <h3>Contact Us</h2>
+        <form method="POST" action="{{ url_for('thank_you') }}">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+    <div class="w3-xlarge w3-padding-32">
+      <i class="fa fa-facebook-official w3-hover-opacity"></i>
+      <i class="fa fa-instagram w3-hover-opacity"></i>
+      <i class="fa fa-snapchat w3-hover-opacity"></i>
+      <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+      <i class="fa fa-twitter w3-hover-opacity"></i>
+      <i class="fa fa-linkedin w3-hover-opacity"></i>
+   </div>
+  </footer>
+  <script>
+    // Get the current URL to determine the active tab
+    var currentURL = window.location.href;
+    
+    // Get the navigation links by their IDs
+    var homeLink = document.getElementById("home-link");
+    var addressBookLink = document.getElementById("address-book-link");
+    var contactLink = document.getElementById("contact-link");
+    
+    // Check if the current URL contains a specific keyword to determine the active tab
+    if (currentURL.includes("login")) {
+        homeLink.classList.add("w3-white"); // Highlight the "Home" tab
+    } else if (currentURL.includes("address_book")) {
+        addressBookLink.classList.add("w3-white"); // Highlight the "Address Book" tab
+    } else if (currentURL.includes("contact")) {
+        contactLink.classList.add("w3-white"); // Highlight the "Contact Us" tab
+    }
+</script>
+</html>

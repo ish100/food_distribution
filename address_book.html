@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-grey w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="{{ url_for('home') }}" id="home-link"  class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="{{ url_for('get_route') }}" id="route-link"  class="w3-bar-item w3-button w3-padding-large">Get Route</a>
+    <a href="{{ url_for('address_book') }}" id="address-book-link"  class="w3-bar-item w3-button w3-padding-large">Address Book</a>
+    <a href="{{ url_for('contact') }}" id="contact-link"  class="w3-bar-item w3-button w3-padding-large">Contact Us</a>
+    
+  </div>
+
+</div>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-grey w3-padding-64 w3-container">
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Shortest TSP Tour</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                text-align: center;
+            }
+            p {
+                margin: 10px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Address Book</h1>
+        <ul>
+            {% for address in addresses %}
+                <li>{{ address.name }}: {{ address.address }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+    </html>    
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+  <div class="w3-xlarge w3-padding-32">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+ </div>
+</footer>
+</body>
+<script>
+    // Get the current URL to determine the active tab
+    var currentURL = window.location.href;
+    
+    // Get the navigation links by their IDs
+    var homeLink = document.getElementById("home-link");
+    var addressBookLink = document.getElementById("address-book-link");
+    var contactLink = document.getElementById("contact-link");
+    
+    // Check if the current URL contains a specific keyword to determine the active tab
+    if (currentURL.includes("login")) {
+        homeLink.classList.add("w3-white"); // Highlight the "Home" tab
+    } else if (currentURL.includes("address_book")) {
+        addressBookLink.classList.add("w3-white"); // Highlight the "Address Book" tab
+    } else if (currentURL.includes("contact")) {
+        contactLink.classList.add("w3-white"); // Highlight the "Contact Us" tab
+    }
+    </script>
+</html>
